@@ -5,6 +5,7 @@ import PetList from 'app/collections/pet_list';
 import PetListView from 'app/views/pet_list_view';
 
 var myPetList = new PetList();
+myPetList.fetch();
 
 var myPetListView = new PetListView({
   model: myPetList,
