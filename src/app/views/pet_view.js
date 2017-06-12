@@ -15,6 +15,21 @@ var PetView = Backbone.View.extend({
     var compiledTemplate = this.template({pet: this.model.toJSON()});
     this.$el.html(compiledTemplate);
     return this;
+  },
+
+  events: {
+    "click": "selected",
+    "click button.delete": 'deletePet'
+  },
+
+  selected: function(event){
+    event.stopPropagation();
+    var model = this.model;
+    this.trigger("showDetails", model);
+  },
+
+  deletePet : function(){
+    this.model.destroy();
   }
 
 });

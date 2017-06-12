@@ -3,7 +3,7 @@ import Backbone from 'backbone';
 var Pet = Backbone.Model.extend({
 
   initialize: function(params) {
-    console.log(this.get("name"));
+    // console.log(this.get("name"));
   }
 
 });

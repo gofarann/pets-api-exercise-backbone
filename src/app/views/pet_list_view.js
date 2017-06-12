@@ -3,14 +3,12 @@ import _ from 'underscore';
 import $ from 'jquery';
 
 import PetView from './pet_view.js';
-import Pet from '../models/pet.js';
+// import Pet from '../models/pet.js';
 
 var PetListView = Backbone.View.extend({
   initialize: function(params) {
     this.template = params.template;
     this.listenTo(this.model, "update", this.render);
-
-
   },
 
   render: function(){
@@ -20,17 +18,37 @@ var PetListView = Backbone.View.extend({
     var that = this;
 
     this.model.each(function(pet){
-      console.log("In this.model.each");
       var petView = new PetView({
         model: pet,
         template: that.template,
-        tagName: 'li'
+        // tagName: 'li'
       });
+      console.log(petView.render().$el);
 
       that.$("#pet-list").append(petView.render().$el);
+      that.listenTo(petView, 'showDetails', that.displayPet);
     });
     return this;
 
+  },
+
+  displayPet: function(pet){
+    this.$('#pet').empty();
+    var petDetails = this.generateHTML(pet);
+    console.log(petDetails);
+    this.$('#pet').append(petDetails);
+  },
+
+  generateHTML:  function(pet){
+    var petDetailsTemplate = _.template($('#pet-card-template').html());
+    var generatedHTML = petDetailsTemplate({
+      pet: {name: pet.get('name'), age: pet.get('age')
+        // age: pet.get('age'),
+        // breed: pet.get('breed'),
+        // vaccinated: pet.get('vaccinated')
+      }}
+    );
+    return generatedHTML;
   }
 
 });

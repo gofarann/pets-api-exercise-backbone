@@ -13,6 +13,32 @@
       <h1>Pets!</h1>
     </header>
     <main>
+      <aside class="small-11 large-3 medium-3 columns create-tasklist">
+  <h2>Create a New Pet</h2>
+    <section class="row" id="title-section">
+      <label class="columns medium-12">Name
+        <input type="text" name="name" id="name" placeholder="Enter the name here" />
+      </label>
+    </section>
+    <section class="row" id="age">
+      <label class="columns medium-12">Age
+        <input type="text" id="age" placeholder="None"></input>
+      </label>
+    </section>
+    <section class="row" id="age">
+      <label class="columns medium-12">Breed
+        <input type="text" id="breed" placeholder="None"></input>
+      </label>
+    </section>
+    <section class="row" id="buttons-section">
+      <div class="medium-8 columns">
+        <input id="vaccinated-checkbox" type="checkbox">
+        <label for="vaccinated-checkbox">Vaccinated?</label>
+      </div>
+
+      <button id="add-pet" class="medium-3 columns button success">Add a Pet</button>
+    </section>
+</aside>
       <section id='pet'></section>
       <section id='pet-list'></section>
       <section id='new-pet'></section>
@@ -22,6 +48,9 @@
 
     <script id="pet-card-template" type="text/template">
       <li><%- pet.name %></li>
+        <button class="button delete">
+          Delete
+        </button>
     </script>
 
     <script id="pet-info-template" type="text/template">
