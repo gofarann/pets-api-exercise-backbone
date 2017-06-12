@@ -3,7 +3,7 @@ import _ from 'underscore';
 import $ from 'jquery';
 
 import PetView from './pet_view.js';
-// import Pet from '../models/pet.js';
+import Pet from '../models/pet.js';
 
 var PetListView = Backbone.View.extend({
   initialize: function(params) {
@@ -23,13 +23,17 @@ var PetListView = Backbone.View.extend({
         template: that.template,
         // tagName: 'li'
       });
-      console.log(petView.render().$el);
+      // console.log(petView.render().$el);
 
       that.$("#pet-list").append(petView.render().$el);
       that.listenTo(petView, 'showDetails', that.displayPet);
     });
     return this;
 
+  },
+
+  events: {
+    "click #add-pet": "addPet",
   },
 
   displayPet: function(pet){
@@ -49,6 +53,35 @@ var PetListView = Backbone.View.extend({
       }}
     );
     return generatedHTML;
+  },
+
+  addPet: function(){
+    var formData = this.getFormData();
+    var newPet = new Pet(formData);
+    // this.model.add();
+    this.model.create(newPet);
+
+  },
+
+  getFormData: function() {
+    var formName = this.$("#name").val();
+    this.$('#name').val('');
+
+    var formAge = this.$("#age").val();
+    this.$('#age').val('');
+
+    var formBreed = this.$("#breed").val();
+    this.$('#breed').val('');
+
+    var formVaccinated = this.$('vaccinated-checkbox').is(":checked");
+    this.$('#vaccinated-checkbox').prop('checked', false);
+
+    return {
+      name: formName,
+      age: formAge,
+      breed: formBreed
+
+    };
   }
 
 });
