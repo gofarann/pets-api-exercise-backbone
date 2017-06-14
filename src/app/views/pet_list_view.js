@@ -9,10 +9,14 @@ var PetListView = Backbone.View.extend({
   initialize: function(params) {
     this.template = params.template;
     this.listenTo(this.model, "update", this.render);
+    // can use set interval to dynamically update
+
   },
 
   render: function(){
     this.$('#pet-list').empty();
+    this.$('#pet').empty();
+
     console.log("In PetListView Render");
 
     var that = this;
@@ -34,23 +38,25 @@ var PetListView = Backbone.View.extend({
 
   events: {
     "click #add-pet": "addPet",
+
   },
 
   displayPet: function(pet){
     this.$('#pet').empty();
     var petDetails = this.generateHTML(pet);
-    console.log(petDetails);
+    // console.log(petDetails);
     this.$('#pet').append(petDetails);
   },
 
   generateHTML:  function(pet){
-    var petDetailsTemplate = _.template($('#pet-card-template').html());
-    var generatedHTML = petDetailsTemplate({
-      pet: {name: pet.get('name'), age: pet.get('age')
-        // age: pet.get('age'),
-        // breed: pet.get('breed'),
-        // vaccinated: pet.get('vaccinated')
-      }}
+    var petDetailsTemplate = _.template($('#pet-info-template').html());
+    var generatedHTML = petDetailsTemplate({pet:{
+      name: pet.get('name'),
+      age: pet.get('age'),
+      breed: pet.get('breed'),
+      vaccinated: pet.get('vaccinated')
+
+    }}
     );
     return generatedHTML;
   },

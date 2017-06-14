@@ -19,6 +19,4 @@ var myPetListView = new PetListView({
 
 $(document).ready(function() {
   myPetListView.render();
-
-
 });
